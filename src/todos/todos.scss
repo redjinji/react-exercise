@@ -1,4 +1,24 @@
-ul {
+.todoList {
   padding: 0;
   list-style: none;
+  max-width: 10rem;
+  font-size: 1.5rem;
+
+  &--item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .todoItem--text {
+      transition: .3s linear;
+    }
+
+    &__checked-true {
+      .todoItem--text {
+        text-decoration: line-through;
+        color: lightgray;
+      }
+    }
+  }
 }
+

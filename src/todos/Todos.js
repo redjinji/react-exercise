@@ -14,28 +14,37 @@ class Todos extends React.Component {
 	}
 	
 	render() {
-		console.log(this.state);
 		return (
 			<div>
 				<AddTodo
 					addToList={this.addToList}
 				></AddTodo>
-				<TodoList
-				todolist={this.state.todoList}
-				></TodoList>
+				{this.renderItems()}
 			</div>
 		);
 	}
 	
-	addToList(text){
+	renderItems(){
+		if(this.state.todoList.length > 0) {
+			return (
+				<TodoList
+					todoList={this.state.todoList}
+				></TodoList>
+			)
+		} else {
+			return (<h2>no list yet</h2>)
+		}
+	}
+	
+	addToList(text) {
 		const newTodoItem = {
 			text: text,
 			didIt: false,
 			id: this.state.todoCounter
 		};
 		this.setState({
-			todoList: [...this.state.todoList,newTodoItem],
-			todoCounter: this.state.todoCounter +1
+			todoList: [...this.state.todoList, newTodoItem],
+			todoCounter: this.state.todoCounter + 1
 		});
 	}
 }
