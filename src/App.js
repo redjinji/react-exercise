@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from './recursion-box/recursion-box'
-import './App.css';
+import './App.scss';
 import Todos from "./todos/todos";
 
 function App() {
