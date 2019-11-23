@@ -1,34 +1,33 @@
 import React from 'react';
 import TodoList from "./TodoList";
 import AddTodo from "./AddTodo";
+import {connect} from 'react-redux';
 import './todos.scss';
 
 class Todos extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			todoList: [],
 			todoCounter: 0
 		};
-		this.addToList = this.addToList.bind(this);
+		this.updateDidItItem = this.updateDidItItem.bind(this);
 	}
 	
 	render() {
 		return (
 			<div>
-				<AddTodo
-					addToList={this.addToList}
-				></AddTodo>
+				<AddTodo></AddTodo>
 				{this.renderItems()}
 			</div>
 		);
 	}
 	
-	renderItems(){
-		if(this.state.todoList.length > 0) {
+	renderItems() {
+		if (this.props.todoList.length > 0) {
 			return (
 				<TodoList
-					todoList={this.state.todoList}
+					todoList={this.props.todoList}
+					updateDidItItem={this.updateDidItItem}
 				></TodoList>
 			)
 		} else {
@@ -47,7 +46,25 @@ class Todos extends React.Component {
 			todoCounter: this.state.todoCounter + 1
 		});
 	}
+	
+	updateDidItItem(id) {
+		let currentUpdateItem = this.state.todoList.filter(item => {
+			if (item.id === id) {
+				item.didIt = !item.didIt;
+			}
+			return true;
+		});
+		
+		this.setState({
+			todoList: currentUpdateItem
+		});
+	}
 }
 
+const mapStateToProps = (state) => {
+	return {
+		todoList: state.todos
+	}
+};
 
-export default Todos;
+export default connect(mapStateToProps)(Todos);
